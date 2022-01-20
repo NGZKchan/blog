@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  backend:
+    build:
+      context: .
+    container_name: backend_dev
+    links:
+      - mysql
+    ports:
+      - "3031:3031"
+    environment:
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./backend/python:/var/www/
+
+  db:
+    image: mysql:5.7
+    container_name: db_dev
+    volumes:
+      - ./mysql/work:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: scraping
+      MYSQL_USER: admin
+      MYSQL_ROOT_PASSWORD: password
+      TZ: "Asia/Tokyo"
